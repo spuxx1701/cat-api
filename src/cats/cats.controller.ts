@@ -1,9 +1,11 @@
-import { Controller, Get, Param } from '@nestjs/common';
+import { Controller, Get, Param, UseInterceptors } from '@nestjs/common';
 import CatsService from './cats.service';
 import { ApiTags, ApiOperation } from '@nestjs/swagger/dist';
+import { LoggingInterceptor } from 'src/interceptors/logging.interceptor';
 
 @Controller('cats')
 @ApiTags('Cats')
+@UseInterceptors(LoggingInterceptor)
 export class CatsController {
   constructor(private readonly service: CatsService) {}
 
