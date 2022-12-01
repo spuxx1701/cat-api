@@ -1,14 +1,23 @@
-import { Injectable } from '@nestjs/common';
-
-const cats = ['Hanni', 'Garfield', 'Moritz', 'Tigger'] as string[];
+import { Injectable, NotFoundException } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
+import Cat from './cats.entity';
 
 @Injectable()
 export default class CatsService {
-  findAll() {
+  constructor(
+    @InjectRepository(Cat)
+    private repository: Repository<Cat>,
+  ) {}
+
+  async findAll(): Promise<Cat[]> {
+    const cats = await this.repository.find();
     return cats;
   }
 
-  findOne(id: string) {
-    return cats.find((cat) => cat === id);
+  async findOne(id: string): Promise<Cat> {
+    const cat = await this.repository.findOne({ where: { id } });
+    if (!cat) throw new NotFoundException();
+    return cat;
   }
 }

@@ -1,5 +1,6 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import Cat from './cats/cats.entity';
 import { CatsModule } from './cats/cats.module';
 
 @Module({
@@ -12,7 +13,7 @@ import { CatsModule } from './cats/cats.module';
       username: 'root',
       password: 'root',
       database: 'db',
-      entities: [],
+      autoLoadEntities: true,
       synchronize: true,
     }),
   ],
