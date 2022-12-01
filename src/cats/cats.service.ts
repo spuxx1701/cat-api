@@ -20,4 +20,9 @@ export default class CatsService {
     if (!cat) throw new NotFoundException();
     return cat;
   }
+
+  async create(cat: Partial<Cat>): Promise<Cat> {
+    const createdCat: Cat = await this.repository.save(cat);
+    return createdCat;
+  }
 }

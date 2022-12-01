@@ -1,4 +1,4 @@
-import { Controller, Get, Param, UseInterceptors } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, UseInterceptors } from '@nestjs/common';
 import CatsService from './cats.service';
 import { ApiTags, ApiOperation } from '@nestjs/swagger/dist';
 import { LoggingInterceptor } from 'src/interceptors/logging.interceptor';
@@ -24,5 +24,13 @@ export class CatsController {
   })
   async findOne(@Param('id') id: string): Promise<Cat> {
     return this.service.findOne(id);
+  }
+
+  @Post()
+  @ApiOperation({
+    summary: "Creates a new cat (don't ask how).",
+  })
+  async create(@Body() cat: Cat) {
+    return this.service.create(cat);
   }
 }
