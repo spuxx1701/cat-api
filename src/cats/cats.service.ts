@@ -32,4 +32,9 @@ export default class CatsService {
     const updatedCat = await this.repository.save(newCat);
     return updatedCat;
   }
+
+  async delete(id: string): Promise<void> {
+    await this.findOne(id);
+    await this.repository.delete(id);
+  }
 }
