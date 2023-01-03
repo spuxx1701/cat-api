@@ -25,4 +25,11 @@ export default class CatsService {
     const createdCat: Cat = await this.repository.save(cat);
     return createdCat;
   }
+
+  async update(id: string, cat: Partial<Cat>): Promise<Cat> {
+    const oldCat = await this.findOne(id);
+    const newCat: Cat = { ...oldCat, ...cat, id };
+    const updatedCat = await this.repository.save(newCat);
+    return updatedCat;
+  }
 }

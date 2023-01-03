@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, Post, UseInterceptors } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, Put, UseInterceptors } from '@nestjs/common';
 import CatsService from './cats.service';
 import { ApiTags, ApiOperation } from '@nestjs/swagger/dist';
 import { LoggingInterceptor } from 'src/interceptors/logging.interceptor';
@@ -32,5 +32,13 @@ export class CatsController {
   })
   async create(@Body() cat: Cat) {
     return this.service.create(cat);
+  }
+
+  @Put(':id')
+  @ApiOperation({
+    summary: 'Updates a cat.',
+  })
+  async update(@Param('id') id: string, @Body() cat: Cat) {
+    return this.service.update(id, cat);
   }
 }
