@@ -36,3 +36,6 @@ lerna-debug.log*
 
 # MARIADB
 /db/db_data
+
+# Secrets
+.env
